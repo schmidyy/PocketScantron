@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.23.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.16.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -63,7 +63,7 @@ Honours. 2018.</string>
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="scanExamButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cje-gQ-9cI"/>
+                                            <segue destination="4No-vI-xcu" kind="show" id="RVO-pK-JJa"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -88,6 +88,157 @@ Honours. 2018.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="860" y="133.5832083958021"/>
+        </scene>
+        <!--Scan exam-->
+        <scene sceneID="q31-8f-ZQm">
+            <objects>
+                <viewController id="jex-Og-kUG" customClass="ScanExamViewController" customModule="PocketScantron" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Oo-ed-gUy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cON-hM-zKx">
+                                <rect key="frame" x="0.0" y="150" width="375" height="312"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No image scanned" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hrr-VS-gdH">
+                                        <rect key="frame" x="116.66666666666669" y="128" width="142" height="20"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s7H-i2-NpO">
+                                        <rect key="frame" x="67.666666666666686" y="0.0" width="240" height="240"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="240" id="D93-Da-G32"/>
+                                            <constraint firstAttribute="width" secondItem="s7H-i2-NpO" secondAttribute="height" multiplier="1:1" id="gHk-Px-soR"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAa-qK-vwm">
+                                        <rect key="frame" x="17.666666666666657" y="258" width="340" height="40"/>
+                                        <color key="backgroundColor" name="BlueButton"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="iFJ-RM-yyv"/>
+                                            <constraint firstAttribute="width" constant="340" id="uDu-yi-Aw0"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                        <state key="normal" title="Scan Exam">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="scanButtonTapped:" destination="jex-Og-kUG" eventType="touchUpInside" id="Bcl-3s-Pac"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="GAa-qK-vwm" secondAttribute="bottom" constant="14" id="9nO-Wu-z2P"/>
+                                    <constraint firstItem="GAa-qK-vwm" firstAttribute="centerX" secondItem="cON-hM-zKx" secondAttribute="centerX" id="AHL-SK-YA5"/>
+                                    <constraint firstItem="Hrr-VS-gdH" firstAttribute="centerX" secondItem="cON-hM-zKx" secondAttribute="centerX" id="Ec3-Fn-ZT1"/>
+                                    <constraint firstItem="Hrr-VS-gdH" firstAttribute="centerY" secondItem="cON-hM-zKx" secondAttribute="centerY" constant="-18" id="K1u-tc-oft"/>
+                                    <constraint firstItem="s7H-i2-NpO" firstAttribute="top" secondItem="cON-hM-zKx" secondAttribute="top" id="Qsa-r5-Iku"/>
+                                    <constraint firstItem="s7H-i2-NpO" firstAttribute="centerX" secondItem="cON-hM-zKx" secondAttribute="centerX" id="WVw-lZ-WHt"/>
+                                    <constraint firstAttribute="height" constant="312" id="u1T-cW-la0"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98Z-17-vmf">
+                                <rect key="frame" x="0.0" y="472" width="375" height="306"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select an exam to grade against" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GkF-9d-n6C">
+                                        <rect key="frame" x="17" y="7.9999999999999982" width="261" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dlL-ld-rAv">
+                                        <rect key="frame" x="0.0" y="36.333333333333314" width="375" height="304.66666666666669"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="examCell" rowHeight="66" id="seP-ac-kLc" customClass="ExamTableViewCell" customModule="PocketScantron" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="66"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="seP-ac-kLc" id="OGy-0M-8Bq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="65.666666666666671"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$EXAM NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odZ-NN-jqt">
+                                                            <rect key="frame" x="16" y="11" width="123" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="Epv-o8-EXI"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$NUM QUESTIONS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D62-9e-sFV">
+                                                            <rect key="frame" x="15" y="37" width="142" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="18" id="N46-CJ-j5R"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$NUM ANSWERS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBX-TA-l4g">
+                                                            <rect key="frame" x="165" y="37" width="125" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="18" id="L36-wE-0iu"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="aBX-TA-l4g" firstAttribute="centerY" secondItem="D62-9e-sFV" secondAttribute="centerY" id="1Lk-oB-wd8"/>
+                                                        <constraint firstItem="D62-9e-sFV" firstAttribute="leading" secondItem="OGy-0M-8Bq" secondAttribute="leadingMargin" id="7QZ-bM-rwO"/>
+                                                        <constraint firstItem="aBX-TA-l4g" firstAttribute="leading" secondItem="D62-9e-sFV" secondAttribute="trailing" constant="8" id="Oy3-8x-krA"/>
+                                                        <constraint firstItem="D62-9e-sFV" firstAttribute="bottom" secondItem="OGy-0M-8Bq" secondAttribute="bottomMargin" id="VXg-6e-1w4"/>
+                                                        <constraint firstItem="odZ-NN-jqt" firstAttribute="leading" secondItem="OGy-0M-8Bq" secondAttribute="leadingMargin" id="W9V-A4-rgY"/>
+                                                        <constraint firstItem="odZ-NN-jqt" firstAttribute="top" secondItem="OGy-0M-8Bq" secondAttribute="topMargin" id="xF4-he-6gi"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="nameLabel" destination="odZ-NN-jqt" id="oql-ic-8wf"/>
+                                                    <outlet property="numAnswersLabel" destination="aBX-TA-l4g" id="A9c-fU-50d"/>
+                                                    <outlet property="numQuestionsLabel" destination="D62-9e-sFV" id="khY-4F-f4Y"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="dlL-ld-rAv" firstAttribute="top" secondItem="GkF-9d-n6C" secondAttribute="bottom" constant="8" id="5xw-dv-G3O"/>
+                                    <constraint firstAttribute="bottom" secondItem="dlL-ld-rAv" secondAttribute="bottom" constant="-35" id="Gwm-cR-QGH"/>
+                                    <constraint firstItem="dlL-ld-rAv" firstAttribute="leading" secondItem="98Z-17-vmf" secondAttribute="leading" id="HrY-o2-cO7"/>
+                                    <constraint firstAttribute="trailing" secondItem="dlL-ld-rAv" secondAttribute="trailing" id="Tvs-sa-9h7"/>
+                                    <constraint firstItem="GkF-9d-n6C" firstAttribute="top" secondItem="98Z-17-vmf" secondAttribute="top" constant="8" id="g8n-en-84B"/>
+                                    <constraint firstItem="GkF-9d-n6C" firstAttribute="leading" secondItem="98Z-17-vmf" secondAttribute="leading" constant="17" id="reG-n2-9Uu"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="P0X-BN-3tS" firstAttribute="trailing" secondItem="cON-hM-zKx" secondAttribute="trailing" id="0La-ba-LOx"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="98Z-17-vmf" secondAttribute="bottom" id="F6X-I7-8Pn"/>
+                            <constraint firstItem="98Z-17-vmf" firstAttribute="leading" secondItem="P0X-BN-3tS" secondAttribute="leading" id="GRO-Ju-Xd4"/>
+                            <constraint firstItem="P0X-BN-3tS" firstAttribute="trailing" secondItem="98Z-17-vmf" secondAttribute="trailing" id="L2f-Ph-svb"/>
+                            <constraint firstItem="98Z-17-vmf" firstAttribute="top" secondItem="cON-hM-zKx" secondAttribute="bottom" constant="10" id="feZ-3R-t1H"/>
+                            <constraint firstItem="cON-hM-zKx" firstAttribute="leading" secondItem="P0X-BN-3tS" secondAttribute="leading" id="fg1-ih-9k9"/>
+                            <constraint firstItem="cON-hM-zKx" firstAttribute="top" secondItem="P0X-BN-3tS" secondAttribute="top" constant="10" id="r0b-Fi-Kw9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="P0X-BN-3tS"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Scan exam" id="7ff-cP-cr1"/>
+                    <connections>
+                        <outlet property="examTableView" destination="dlL-ld-rAv" id="Ppp-rz-kYN"/>
+                        <outlet property="imageView" destination="s7H-i2-NpO" id="2vw-ti-95V"/>
+                        <outlet property="scanButton" destination="GAa-qK-vwm" id="yqR-KP-m4O"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5P2-aP-L6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2674.4000000000001" y="501.72413793103448"/>
         </scene>
         <!--Saved solutions-->
         <scene sceneID="C6U-Pa-OC7">
@@ -273,7 +424,7 @@ Honours. 2018.</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zZu-8Z-f8a">
-                                                            <rect key="frame" x="126" y="8.3333333333333357" width="280" height="29"/>
+                                                            <rect key="frame" x="32" y="8.3333333333333357" width="280" height="29"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="280" id="9M8-ML-mWX"/>
                                                             </constraints>
@@ -378,6 +529,24 @@ Honours. 2018.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w0V-UQ-Lp6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1732" y="-197.45127436281859"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="SUR-on-kn0">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4No-vI-xcu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="vwc-bB-ysf">
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jex-Og-kUG" kind="relationship" relationship="rootViewController" id="DNJ-fF-Toh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PKE-J4-oon" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1732" y="501.72413793103448"/>
         </scene>
     </scenes>
     <resources>

@@ -61,6 +61,7 @@ class SavedSolutionsTableViewController: UITableViewController, NewExamDelegate 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "examCell", for: indexPath) as! ExamTableViewCell
         cell.formatCell(for: savedExams[indexPath.row])
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
     
