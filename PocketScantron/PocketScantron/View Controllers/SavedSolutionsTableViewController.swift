@@ -8,8 +8,8 @@
 
 import UIKit
 
-class SavedSolutionsTableViewController: UITableViewController {
-    private var savedExams: [Exam] = [/*Exam(name: "BIOL1902", questions: [Question()], answersPerQuestion: 4)*/]
+class SavedSolutionsTableViewController: UITableViewController, NewExamDelegate {
+    private var savedExams: [Exam] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,11 +20,24 @@ class SavedSolutionsTableViewController: UITableViewController {
     
     @objc func addExamButtonTapped() {
         let newExamViewController = storyboard?.instantiateViewController(withIdentifier: "newExamVC") as! NewExamViewController
+        newExamViewController.delegate = self
         navigationController?.pushViewController(newExamViewController, animated: true)
     }
     
     @objc func dismissButtonTapped() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - New Exam Delegate
+    func saveExam(exam: Exam) {
+        let examNames = savedExams.map { $0.name }
+        for (i, name) in examNames.enumerated() {
+            if name == exam.name {
+                savedExams[i] = exam
+                return
+            }
+        }
+        savedExams.append(exam)
     }
 
     // MARK: - Table view data source
@@ -49,5 +62,12 @@ class SavedSolutionsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "examCell", for: indexPath) as! ExamTableViewCell
         cell.formatCell(for: savedExams[indexPath.row])
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let newExamViewController = storyboard?.instantiateViewController(withIdentifier: "newExamVC") as! NewExamViewController
+        newExamViewController.exam = savedExams[indexPath.row]
+        newExamViewController.delegate = self
+        navigationController?.pushViewController(newExamViewController, animated: true)
     }
 }

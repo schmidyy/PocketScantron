@@ -19,9 +19,11 @@
 		278341EF2152AF55001DA762 /* SavedSolutionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278341EE2152AF55001DA762 /* SavedSolutionsTableViewController.swift */; };
 		278341F12152AF96001DA762 /* Exam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278341F02152AF96001DA762 /* Exam.swift */; };
 		278341F32152FCF3001DA762 /* ExamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278341F22152FCF3001DA762 /* ExamTableViewCell.swift */; };
+		B1D4B15A130010F8CAA755BD /* Pods_PocketScantron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439B1A2AABEF9CD759B89A7B /* Pods_PocketScantron.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		210F3C3B5E30B3F18BD9CCFB /* Pods-PocketScantron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketScantron.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PocketScantron/Pods-PocketScantron.debug.xcconfig"; sourceTree = "<group>"; };
 		2769AC30215E93F800A6F8B2 /* NewExamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExamViewController.swift; sourceTree = "<group>"; };
 		2769AC32215E99CC00A6F8B2 /* QuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableViewCell.swift; sourceTree = "<group>"; };
 		278341CE2152A57C001DA762 /* PocketScantron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketScantron.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,6 +38,8 @@
 		278341EE2152AF55001DA762 /* SavedSolutionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedSolutionsTableViewController.swift; sourceTree = "<group>"; };
 		278341F02152AF96001DA762 /* Exam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exam.swift; sourceTree = "<group>"; };
 		278341F22152FCF3001DA762 /* ExamTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamTableViewCell.swift; sourceTree = "<group>"; };
+		439B1A2AABEF9CD759B89A7B /* Pods_PocketScantron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PocketScantron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9329986A3C88E17646663243 /* Pods-PocketScantron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketScantron.release.xcconfig"; path = "Pods/Target Support Files/Pods-PocketScantron/Pods-PocketScantron.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1D4B15A130010F8CAA755BD /* Pods_PocketScantron.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +59,8 @@
 			children = (
 				278341D02152A57C001DA762 /* PocketScantron */,
 				278341CF2152A57C001DA762 /* Products */,
+				E0693516741F6AF2E43C9BA9 /* Pods */,
+				AC89067B96316BDCD47D60F9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +132,23 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		AC89067B96316BDCD47D60F9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				439B1A2AABEF9CD759B89A7B /* Pods_PocketScantron.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E0693516741F6AF2E43C9BA9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				210F3C3B5E30B3F18BD9CCFB /* Pods-PocketScantron.debug.xcconfig */,
+				9329986A3C88E17646663243 /* Pods-PocketScantron.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +156,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 278341E02152A57E001DA762 /* Build configuration list for PBXNativeTarget "PocketScantron" */;
 			buildPhases = (
+				0A97DBB1C747D89CE76CD33B /* [CP] Check Pods Manifest.lock */,
 				278341CA2152A57C001DA762 /* Sources */,
 				278341CB2152A57C001DA762 /* Frameworks */,
 				278341CC2152A57C001DA762 /* Resources */,
+				FFBFA58A19F5856E26F50436 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -157,6 +183,7 @@
 				TargetAttributes = {
 					278341CD2152A57C001DA762 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -191,6 +218,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0A97DBB1C747D89CE76CD33B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PocketScantron-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FFBFA58A19F5856E26F50436 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PocketScantron/Pods-PocketScantron-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/WeScan/WeScan.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WeScan.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PocketScantron/Pods-PocketScantron-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		278341CA2152A57C001DA762 /* Sources */ = {
@@ -346,6 +412,7 @@
 		};
 		278341E12152A57E001DA762 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 210F3C3B5E30B3F18BD9CCFB /* Pods-PocketScantron.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -357,13 +424,14 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matschmid.PocketScantron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		278341E22152A57E001DA762 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9329986A3C88E17646663243 /* Pods-PocketScantron.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -375,7 +443,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matschmid.PocketScantron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

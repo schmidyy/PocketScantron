@@ -23,5 +23,6 @@ enum Answer: String {
 }
 
 struct Question {
+    let number: Int
     var selectedAnswer: Answer = .A
 }

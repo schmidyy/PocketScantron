@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol NewExamDelegate: AnyObject {
+    func saveExam(exam: Exam)
+}
+
 class NewExamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     @IBOutlet weak var answerPerQuestionSegmentedControl: UISegmentedControl!
     @IBOutlet weak var questionsOnExamSlider: UISlider!
@@ -15,14 +19,21 @@ class NewExamViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var examNameTextField: UITextField!
     @IBOutlet weak var examQuestionsTableView: UITableView!
     
+    weak var delegate: NewExamDelegate?
+    
+    private var questions: [Question] = Array(0..<180).map { Question(number: $0 + 1, selectedAnswer: .A) }
+    var exam: Exam?
+    
     var answersPerQuestion = 4 {
         didSet {
+            exam?.answersPerQuestion = answersPerQuestion
             examQuestionsTableView.reloadData()
         }
     }
     
-    var questionsOnExam = 90 {
+    var questionsOnExam = 100 {
         didSet {
+            exam?.questions = Array(questions.prefix(questionsOnExam))
             questionsOnExamValueLabel.text = "\(questionsOnExam)"
             examQuestionsTableView.reloadData()
         }
@@ -30,6 +41,17 @@ class NewExamViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let exam = exam {
+            title = exam.name
+            examNameTextField.text = exam.name
+            questionsOnExam = exam.numQuestions
+            answersPerQuestion = exam.answersPerQuestion
+        } else {
+            exam = Exam(name: "", questions: Array(questions.prefix(questionsOnExam)), answersPerQuestion: answersPerQuestion)
+        }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveExam))
         
         examQuestionsTableView.delegate = self
         examQuestionsTableView.dataSource = self
@@ -42,6 +64,17 @@ class NewExamViewController: UIViewController, UITableViewDelegate, UITableViewD
         answerPerQuestionSegmentedControl.selectedSegmentIndex = answersPerQuestion - 2
         questionsOnExamSlider.value = Float(questionsOnExam)
         questionsOnExamValueLabel.text = "\(questionsOnExam)"
+    }
+    
+    @objc func saveExam() {
+        guard let name = examNameTextField.text, !name.isEmpty, var exam = exam else {
+            Alert.showBasicAlert(on: self, with: "Error", message: "Please enter an exam name.")
+            return
+        }
+        
+        exam.name = name
+        delegate?.saveExam(exam: exam)
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Event Handlers
@@ -60,7 +93,10 @@ class NewExamViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "questionCell", for: indexPath) as! QuestionTableViewCell
-        cell.formatCell(questionNumber: indexPath.row + 1, numAnswers: answersPerQuestion)
+        cell.formatCell(questionNumber: indexPath.row + 1, exam: exam!)
+        cell.segmentSelectAction = { sender in
+            self.questions[indexPath.row].selectedAnswer = Answer.allValues[sender.selectedSegmentIndex]
+        }
         return cell
     }
     
