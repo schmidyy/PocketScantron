@@ -19,6 +19,9 @@
 		278341EF2152AF55001DA762 /* SavedSolutionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278341EE2152AF55001DA762 /* SavedSolutionsTableViewController.swift */; };
 		278341F12152AF96001DA762 /* Exam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278341F02152AF96001DA762 /* Exam.swift */; };
 		278341F32152FCF3001DA762 /* ExamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278341F22152FCF3001DA762 /* ExamTableViewCell.swift */; };
+		27AD9D29217E8C0B000A76C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27AD9D28217E8C0B000A76C3 /* GoogleService-Info.plist */; };
+		27AD9D2B217E8E93000A76C3 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AD9D2A217E8E93000A76C3 /* Device.swift */; };
+		27AD9D2D217E9012000A76C3 /* FirestoreClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AD9D2C217E9012000A76C3 /* FirestoreClient.swift */; };
 		27D769922176C5C200DD2068 /* ScanExamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D769912176C5C200DD2068 /* ScanExamViewController.swift */; };
 		36F70DB1D46399CD61F30918 /* Pods_PocketScantron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439B1A2AABEF9CD759B89A7B /* Pods_PocketScantron.framework */; };
 /* End PBXBuildFile section */
@@ -39,6 +42,9 @@
 		278341EE2152AF55001DA762 /* SavedSolutionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedSolutionsTableViewController.swift; sourceTree = "<group>"; };
 		278341F02152AF96001DA762 /* Exam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exam.swift; sourceTree = "<group>"; };
 		278341F22152FCF3001DA762 /* ExamTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamTableViewCell.swift; sourceTree = "<group>"; };
+		27AD9D28217E8C0B000A76C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		27AD9D2A217E8E93000A76C3 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		27AD9D2C217E9012000A76C3 /* FirestoreClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreClient.swift; sourceTree = "<group>"; };
 		27D769912176C5C200DD2068 /* ScanExamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanExamViewController.swift; sourceTree = "<group>"; };
 		439B1A2AABEF9CD759B89A7B /* Pods_PocketScantron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PocketScantron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9329986A3C88E17646663243 /* Pods-PocketScantron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketScantron.release.xcconfig"; path = "Pods/Target Support Files/Pods-PocketScantron/Pods-PocketScantron.release.xcconfig"; sourceTree = "<group>"; };
@@ -80,9 +86,11 @@
 				278341E92152AB7B001DA762 /* View Controllers */,
 				278341EA2152AB85001DA762 /* Views */,
 				278341ED2152ABFE001DA762 /* Model */,
+				27AD9D2E217E9016000A76C3 /* Client */,
 				278341E62152AB5E001DA762 /* Assets */,
 				278341E52152AB4F001DA762 /* Supporting Files */,
 				278341DD2152A57E001DA762 /* Info.plist */,
+				27AD9D28217E8C0B000A76C3 /* GoogleService-Info.plist */,
 			);
 			path = PocketScantron;
 			sourceTree = "<group>";
@@ -131,8 +139,17 @@
 			children = (
 				278341EB2152ABF6001DA762 /* System.swift */,
 				278341F02152AF96001DA762 /* Exam.swift */,
+				27AD9D2A217E8E93000A76C3 /* Device.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		27AD9D2E217E9016000A76C3 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				27AD9D2C217E9012000A76C3 /* FirestoreClient.swift */,
+			);
+			path = Client;
 			sourceTree = "<group>";
 		};
 		AC89067B96316BDCD47D60F9 /* Frameworks */ = {
@@ -215,6 +232,7 @@
 			files = (
 				278341DC2152A57E001DA762 /* LaunchScreen.storyboard in Resources */,
 				278341D92152A57E001DA762 /* Assets.xcassets in Resources */,
+				27AD9D29217E8C0B000A76C3 /* GoogleService-Info.plist in Resources */,
 				278341D72152A57C001DA762 /* Main.storyboard in Resources */,
 				278341E42152A833001DA762 /* Colours.xcassets in Resources */,
 			);
@@ -248,11 +266,35 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-PocketScantron/Pods-PocketScantron-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/WeScan/WeScan.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WeScan.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -269,12 +311,14 @@
 				278341F32152FCF3001DA762 /* ExamTableViewCell.swift in Sources */,
 				2769AC33215E99CC00A6F8B2 /* QuestionTableViewCell.swift in Sources */,
 				278341EF2152AF55001DA762 /* SavedSolutionsTableViewController.swift in Sources */,
+				27AD9D2D217E9012000A76C3 /* FirestoreClient.swift in Sources */,
 				278341F12152AF96001DA762 /* Exam.swift in Sources */,
 				278341D22152A57C001DA762 /* AppDelegate.swift in Sources */,
 				27D769922176C5C200DD2068 /* ScanExamViewController.swift in Sources */,
 				2769AC31215E93F800A6F8B2 /* NewExamViewController.swift in Sources */,
 				278341EC2152ABF6001DA762 /* System.swift in Sources */,
 				278341E82152AB74001DA762 /* HomeViewController.swift in Sources */,
+				27AD9D2B217E8E93000A76C3 /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

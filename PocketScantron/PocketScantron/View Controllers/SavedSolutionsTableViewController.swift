@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import JGProgressHUD
 
-class SavedSolutionsTableViewController: UITableViewController, NewExamDelegate {
+class SavedSolutionsTableViewController: UITableViewController {
     private var savedExams: [Exam] = []
+    let hud = JGProgressHUD(style: .dark)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,32 +20,38 @@ class SavedSolutionsTableViewController: UITableViewController, NewExamDelegate 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .done, target: self, action: #selector(dismissButtonTapped))
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        hud.textLabel.text = "Fetching..."
+        hud.show(in: tableView)
+        
+        FirestoreClient.savedExams(completion: { [weak self] exams in
+            self?.hud.dismiss()
+            guard let `self` = self else { return }
+            
+            if let exams = exams {
+                self.savedExams = exams
+            } else {
+                self.tableView.emptyMessageView(message: "There are no saved exams on this device. You can add one by selecting the + on the top right of this screen.")
+            }
+            self.tableView.reloadData()
+        })
+    }
+    
     @objc func addExamButtonTapped() {
         let newExamViewController = storyboard?.instantiateViewController(withIdentifier: "newExamVC") as! NewExamViewController
-        newExamViewController.delegate = self
         navigationController?.pushViewController(newExamViewController, animated: true)
     }
     
     @objc func dismissButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
-    
-    // MARK: - New Exam Delegate
-    func saveExam(exam: Exam) {
-        let examNames = savedExams.map { $0.name }
-        for (i, name) in examNames.enumerated() {
-            if name == exam.name {
-                savedExams[i] = exam
-                return
-            }
-        }
-        savedExams.append(exam)
-    }
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         guard !savedExams.isEmpty else {
-            tableView.emptyMessageView(message: "There are no saved exams on this device. You can add one by selecting the + on the top right of this screen.")
+            
             return 0
         }
         tableView.restore()
@@ -68,7 +76,6 @@ class SavedSolutionsTableViewController: UITableViewController, NewExamDelegate 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newExamViewController = storyboard?.instantiateViewController(withIdentifier: "newExamVC") as! NewExamViewController
         newExamViewController.exam = savedExams[indexPath.row]
-        newExamViewController.delegate = self
         navigationController?.pushViewController(newExamViewController, animated: true)
     }
 }

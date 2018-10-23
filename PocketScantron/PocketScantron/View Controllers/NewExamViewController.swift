@@ -8,18 +8,12 @@
 
 import UIKit
 
-protocol NewExamDelegate: AnyObject {
-    func saveExam(exam: Exam)
-}
-
 class NewExamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     @IBOutlet weak var answerPerQuestionSegmentedControl: UISegmentedControl!
     @IBOutlet weak var questionsOnExamSlider: UISlider!
     @IBOutlet weak var questionsOnExamValueLabel: UILabel!
     @IBOutlet weak var examNameTextField: UITextField!
     @IBOutlet weak var examQuestionsTableView: UITableView!
-    
-    weak var delegate: NewExamDelegate?
     
     private var questions: [Question] = Array(0..<180).map { Question(number: $0 + 1, selectedAnswer: .A) }
     var exam: Exam?
@@ -51,7 +45,7 @@ class NewExamViewController: UIViewController, UITableViewDelegate, UITableViewD
             exam = Exam(name: "", questions: Array(questions.prefix(questionsOnExam)), answersPerQuestion: answersPerQuestion)
         }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveExam))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveExam))
         
         examQuestionsTableView.delegate = self
         examQuestionsTableView.dataSource = self
@@ -73,7 +67,10 @@ class NewExamViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         exam.name = name
-        delegate?.saveExam(exam: exam)
+        exam.questions = Array(questions.prefix(questionsOnExam))
+        
+        FirestoreClient.saveExam(exam)
+        
         navigationController?.popViewController(animated: true)
     }
     

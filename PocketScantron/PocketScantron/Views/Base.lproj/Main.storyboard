@@ -98,7 +98,7 @@ Honours. 2018.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cON-hM-zKx">
-                                <rect key="frame" x="0.0" y="150" width="375" height="312"/>
+                                <rect key="frame" x="0.0" y="140" width="375" height="312"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No image scanned" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hrr-VS-gdH">
                                         <rect key="frame" x="116.66666666666669" y="128" width="142" height="20"/>
@@ -141,7 +141,7 @@ Honours. 2018.</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98Z-17-vmf">
-                                <rect key="frame" x="0.0" y="472" width="375" height="306"/>
+                                <rect key="frame" x="0.0" y="462" width="375" height="316"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select an exam to grade against" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GkF-9d-n6C">
                                         <rect key="frame" x="17" y="7.9999999999999982" width="261" height="20.333333333333329"/>
@@ -150,7 +150,7 @@ Honours. 2018.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dlL-ld-rAv">
-                                        <rect key="frame" x="0.0" y="36.333333333333314" width="375" height="304.66666666666669"/>
+                                        <rect key="frame" x="0.0" y="36.333333333333314" width="375" height="314.66666666666669"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="examCell" rowHeight="66" id="seP-ac-kLc" customClass="ExamTableViewCell" customModule="PocketScantron" customModuleProvider="target">
@@ -225,7 +225,7 @@ Honours. 2018.</string>
                             <constraint firstItem="P0X-BN-3tS" firstAttribute="trailing" secondItem="98Z-17-vmf" secondAttribute="trailing" id="L2f-Ph-svb"/>
                             <constraint firstItem="98Z-17-vmf" firstAttribute="top" secondItem="cON-hM-zKx" secondAttribute="bottom" constant="10" id="feZ-3R-t1H"/>
                             <constraint firstItem="cON-hM-zKx" firstAttribute="leading" secondItem="P0X-BN-3tS" secondAttribute="leading" id="fg1-ih-9k9"/>
-                            <constraint firstItem="cON-hM-zKx" firstAttribute="top" secondItem="P0X-BN-3tS" secondAttribute="top" constant="10" id="r0b-Fi-Kw9"/>
+                            <constraint firstItem="cON-hM-zKx" firstAttribute="top" secondItem="P0X-BN-3tS" secondAttribute="top" id="r0b-Fi-Kw9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="P0X-BN-3tS"/>
                     </view>
@@ -424,7 +424,7 @@ Honours. 2018.</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zZu-8Z-f8a">
-                                                            <rect key="frame" x="32" y="8.3333333333333357" width="280" height="29"/>
+                                                            <rect key="frame" x="87" y="8.3333333333333357" width="280" height="29"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="280" id="9M8-ML-mWX"/>
                                                             </constraints>

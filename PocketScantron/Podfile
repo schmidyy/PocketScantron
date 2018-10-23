@@ -6,5 +6,10 @@ target 'PocketScantron' do
   use_frameworks!
   
   pod 'WeScan', '>= 0.9'
+  pod 'JGProgressHUD'
+  
+  pod 'Firebase/Core'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
 
 end

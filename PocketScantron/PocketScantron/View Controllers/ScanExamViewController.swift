@@ -8,6 +8,7 @@
 
 import UIKit
 import WeScan
+import JGProgressHUD
 
 class ScanExamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ImageScannerControllerDelegate {
     
@@ -15,7 +16,8 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var scanButton: UIButton!
     @IBOutlet weak var examTableView: UITableView!
     
-    private var savedExams: [Exam] = [Exam(name: "BIOL1902", questions: [Question(number: 1, selectedAnswer: .A)], answersPerQuestion: 3)]
+    private var savedExams: [Exam] = []
+    let hud = JGProgressHUD(style: .dark)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,11 +25,31 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
         examTableView.delegate = self
         examTableView.dataSource = self
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .done, target: self, action: #selector(dismissButtonTapped))
+        hud.textLabel.text = "Fetching..."
+        hud.show(in: examTableView)
+        
+        FirestoreClient.savedExams(completion: { [weak self] exams in
+            self?.hud.dismiss()
+            guard let `self` = self else { return }
+            
+            if let exams = exams {
+                self.savedExams = exams
+            } else {
+                self.examTableView.emptyMessageView(message: "There are no saved exams on this device. You can add one from the home screen")
+            }
+            self.examTableView.reloadData()
+        })
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(dismissButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .done, target: self, action: #selector(saveButtonTapped))
         scanButton.layer.cornerRadius = 6;
     }
 
     @objc func dismissButtonTapped() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func saveButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
     
@@ -38,15 +60,6 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     //MARK: - Table View Delegate Methods
-    func numberOfSections(in tableView: UITableView) -> Int {
-        guard !savedExams.isEmpty else {
-            tableView.emptyMessageView(message: "There are no saved exams on this device. You can add one by selecting the + on the top right of this screen.")
-            return 0
-        }
-        tableView.restore()
-        return 1
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return savedExams.count
     }
@@ -67,6 +80,7 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
             if cell.accessoryType == .none {
                 resetChecks()
                 cell.accessoryType = .checkmark
+                //TODO: save selected exam
             }
         }
     }
