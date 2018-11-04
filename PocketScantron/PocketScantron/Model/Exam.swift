@@ -9,6 +9,7 @@
 import Foundation
 
 struct Exam {
+    var id: String
     var name: String
     var questions: [Question]
     var answersPerQuestion: Int

@@ -7,15 +7,20 @@
 //
 
 import Foundation
+
 import FirebaseFirestore
+import FirebaseStorage
+
+import Alamofire
+import SwiftyJSON
 
 struct FirestoreClient {
     static let db = Firestore.firestore()
     
-    static func saveExam(_ exam: Exam) {
+    static func saveExam(_ exam: Exam, completion: @escaping() -> Void) {
         let questionsFields = exam.questions.map { ["number": $0.number, "answer": $0.selectedAnswer.rawValue] }
         let examFields: [String: Any] = [
-            "id": NSUUID().uuidString,
+            "id": exam.id,
             "name": exam.name,
             "answersPerQuestion": exam.answersPerQuestion,
             "questions": questionsFields
@@ -28,13 +33,13 @@ struct FirestoreClient {
                 // Update existing user's exams
                 documentReference.updateData(["exams": FieldValue.arrayUnion([examFields])], completion: { updateError in
                     guard updateError == nil else { return }
-                    //TODO: Handle update completion
+                    completion()
                 })
             } else {
                 // Set user's first exam
                 documentReference.setData(["exams": [examFields]], completion: { setError in
                     guard setError == nil else { return }
-                    //TODOL Handle set completion
+                    completion()
                 })
             }
         }
@@ -59,6 +64,7 @@ struct FirestoreClient {
                         
                     }
                     let newExam = Exam(
+                        id: exam["id"] as! String,
                         name: exam["name"] as! String,
                         questions: questions,
                         answersPerQuestion: exam["answersPerQuestion"] as! Int
@@ -67,6 +73,38 @@ struct FirestoreClient {
                 }
                 completion(fetchedExams)
             }
+        }
+    }
+    
+    static func uploadImage(_ image: UIImage, completion: @escaping (_ url: String?) -> Void) {
+        let imageID = NSUUID().uuidString
+        let storageRef = Storage.storage().reference().child("\(imageID).jpg")
+        if let uploadData = image.jpegData(compressionQuality: 0.8) {
+            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                if error != nil {
+                    print(error ?? "error")
+                    completion(nil)
+                }
+                
+                storageRef.downloadURL(completion: { (url, err) in
+                    completion(url?.absoluteString)
+                })
+            }
+        }
+    }
+    
+    static func saveImage(url: String, examID: String, completion: @escaping() -> Void) {
+        let fields: [String: Any] = [
+            "url": url,
+            "id": examID
+            // num question
+            // user id
+        ]
+    
+        Alamofire.request(url, method: .post, parameters: fields, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
+            guard let data = response.data else { return }
+            let json = JSON(data)
+            print(json)
         }
     }
 }

@@ -42,7 +42,7 @@ class NewExamViewController: UIViewController, UITableViewDelegate, UITableViewD
             questionsOnExam = exam.numQuestions
             answersPerQuestion = exam.answersPerQuestion
         } else {
-            exam = Exam(name: "", questions: Array(questions.prefix(questionsOnExam)), answersPerQuestion: answersPerQuestion)
+            exam = Exam(id: "", name: "", questions: Array(questions.prefix(questionsOnExam)), answersPerQuestion: answersPerQuestion)
         }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveExam))
@@ -66,12 +66,13 @@ class NewExamViewController: UIViewController, UITableViewDelegate, UITableViewD
             return
         }
         
+        exam.id = NSUUID().uuidString
         exam.name = name
         exam.questions = Array(questions.prefix(questionsOnExam))
         
-        FirestoreClient.saveExam(exam)
-        
-        navigationController?.popViewController(animated: true)
+        FirestoreClient.saveExam(exam) {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     //MARK: - Event Handlers

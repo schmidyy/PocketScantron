@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2769AC31215E93F800A6F8B2 /* NewExamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2769AC30215E93F800A6F8B2 /* NewExamViewController.swift */; };
 		2769AC33215E99CC00A6F8B2 /* QuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2769AC32215E99CC00A6F8B2 /* QuestionTableViewCell.swift */; };
+		276E07FE218E1234003F499B /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E07FD218E1234003F499B /* UIImage+Extensions.swift */; };
+		276E0800218F482E003F499B /* ResultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E07FF218F482E003F499B /* ResultResponse.swift */; };
 		278341D22152A57C001DA762 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278341D12152A57C001DA762 /* AppDelegate.swift */; };
 		278341D72152A57C001DA762 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 278341D52152A57C001DA762 /* Main.storyboard */; };
 		278341D92152A57E001DA762 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278341D82152A57E001DA762 /* Assets.xcassets */; };
@@ -30,6 +32,8 @@
 		210F3C3B5E30B3F18BD9CCFB /* Pods-PocketScantron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketScantron.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PocketScantron/Pods-PocketScantron.debug.xcconfig"; sourceTree = "<group>"; };
 		2769AC30215E93F800A6F8B2 /* NewExamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExamViewController.swift; sourceTree = "<group>"; };
 		2769AC32215E99CC00A6F8B2 /* QuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableViewCell.swift; sourceTree = "<group>"; };
+		276E07FD218E1234003F499B /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		276E07FF218F482E003F499B /* ResultResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultResponse.swift; sourceTree = "<group>"; };
 		278341CE2152A57C001DA762 /* PocketScantron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketScantron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		278341D12152A57C001DA762 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		278341D62152A57C001DA762 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 			children = (
 				278341D12152A57C001DA762 /* AppDelegate.swift */,
 				278341DA2152A57E001DA762 /* LaunchScreen.storyboard */,
+				276E07FD218E1234003F499B /* UIImage+Extensions.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 				278341EB2152ABF6001DA762 /* System.swift */,
 				278341F02152AF96001DA762 /* Exam.swift */,
 				27AD9D2A217E8E93000A76C3 /* Device.swift */,
+				276E07FF218F482E003F499B /* ResultResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -266,11 +272,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-PocketScantron/Pods-PocketScantron-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/WeScan/WeScan.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
@@ -282,11 +290,13 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WeScan.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
@@ -311,9 +321,11 @@
 				278341F32152FCF3001DA762 /* ExamTableViewCell.swift in Sources */,
 				2769AC33215E99CC00A6F8B2 /* QuestionTableViewCell.swift in Sources */,
 				278341EF2152AF55001DA762 /* SavedSolutionsTableViewController.swift in Sources */,
+				276E07FE218E1234003F499B /* UIImage+Extensions.swift in Sources */,
 				27AD9D2D217E9012000A76C3 /* FirestoreClient.swift in Sources */,
 				278341F12152AF96001DA762 /* Exam.swift in Sources */,
 				278341D22152A57C001DA762 /* AppDelegate.swift in Sources */,
+				276E0800218F482E003F499B /* ResultResponse.swift in Sources */,
 				27D769922176C5C200DD2068 /* ScanExamViewController.swift in Sources */,
 				2769AC31215E93F800A6F8B2 /* NewExamViewController.swift in Sources */,
 				278341EC2152ABF6001DA762 /* System.swift in Sources */,

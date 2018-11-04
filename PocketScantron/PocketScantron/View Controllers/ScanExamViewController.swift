@@ -17,6 +17,19 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var examTableView: UITableView!
     
     private var savedExams: [Exam] = []
+    
+    private var selectedExamID: String? {
+        didSet {
+            updateNavBarButton()
+        }
+    }
+    
+    private var examImage: UIImage? {
+        didSet {
+            updateNavBarButton()
+        }
+    }
+    
     let hud = JGProgressHUD(style: .dark)
     
     override func viewDidLoad() {
@@ -42,6 +55,7 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(dismissButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .done, target: self, action: #selector(saveButtonTapped))
+        navigationItem.rightBarButtonItem?.isEnabled = false
         scanButton.layer.cornerRadius = 6;
     }
 
@@ -50,7 +64,21 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func saveButtonTapped() {
+        guard let image = examImage?.noir else { return }
+        FirestoreClient.uploadImage(increaseContrast(image)) { url in
+            guard let urlString = url, let examID = self.selectedExamID else { return }
+            print(urlString)
+            
+            FirestoreClient.saveImage(url: urlString, examID: examID, completion: {
+                //
+            })
+        }
         dismiss(animated: true, completion: nil)
+    }
+    
+    private func updateNavBarButton() {
+        guard examImage != nil && selectedExamID != nil else { return }
+        navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
     @IBAction func scanButtonTapped(_ sender: UIButton) {
@@ -75,6 +103,7 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedExamID = savedExams[indexPath.row].id
         tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath) {
             if cell.accessoryType == .none {
@@ -99,12 +128,28 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func imageScannerController(_ scanner: ImageScannerController, didFinishScanningWithResults results: ImageScannerResults) {
-        imageView.image = results.scannedImage
+        DispatchQueue.main.async {
+            self.imageView.image = results.scannedImage
+        }
+        
+        examImage = results.scannedImage
         scanner.dismiss(animated: true)
     }
     
     func imageScannerControllerDidCancel(_ scanner: ImageScannerController) {
         // Your ViewController is responsible for dismissing the ImageScannerController
         scanner.dismiss(animated: true)
+    }
+    
+    func increaseContrast(_ image: UIImage) -> UIImage {
+        let inputImage = CIImage(image: image)!
+        let parameters = [
+            "inputContrast": NSNumber(value: Int.max)
+        ]
+        let outputImage = inputImage.applyingFilter("CIColorControls", parameters: parameters)
+        
+        let context = CIContext(options: nil)
+        let img = context.createCGImage(outputImage, from: outputImage.extent)!
+        return UIImage(cgImage: img)
     }
 }

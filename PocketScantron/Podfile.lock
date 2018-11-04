@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.7.3)
   - BoringSSL (10.0.6):
     - BoringSSL/Implementation (= 10.0.6)
     - BoringSSL/Interface (= 10.0.6)
@@ -112,17 +113,21 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.6.1)
+  - SwiftyJSON (4.1.0)
   - WeScan (0.9.1)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.7)
   - Firebase/Core
   - Firebase/Firestore
   - Firebase/Storage
   - JGProgressHUD
+  - SwiftyJSON (~> 4.0)
   - WeScan (>= 0.9)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
     - BoringSSL
     - Firebase
     - FirebaseAnalytics
@@ -143,9 +148,11 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
+    - SwiftyJSON
     - WeScan
 
 SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   Firebase: a870ed114d769b424021a0c8ddb0c86c3250a0c5
   FirebaseAnalytics: 361594968a84a04d9598ef0f2e769d3735cd03de
@@ -166,8 +173,9 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   WeScan: 85518097ab11d38be3b3a6e0ae244d59bc8071b4
 
-PODFILE CHECKSUM: 5273fa796fe2292de4d42ed5eb20c827a4895e5e
+PODFILE CHECKSUM: 49f69d2a8365f471fedcebf83bc2c2f1b7dfa8c6
 
 COCOAPODS: 1.5.3

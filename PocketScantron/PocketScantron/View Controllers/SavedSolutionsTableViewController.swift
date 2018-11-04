@@ -23,6 +23,10 @@ class SavedSolutionsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        fetchExams()
+    }
+    
+    private func fetchExams() {
         hud.textLabel.text = "Fetching..."
         hud.show(in: tableView)
         
@@ -69,13 +73,13 @@ class SavedSolutionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "examCell", for: indexPath) as! ExamTableViewCell
         cell.formatCell(for: savedExams[indexPath.row])
-        cell.accessoryType = .disclosureIndicator
+//        cell.accessoryType = .disclosureIndicator
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let newExamViewController = storyboard?.instantiateViewController(withIdentifier: "newExamVC") as! NewExamViewController
-        newExamViewController.exam = savedExams[indexPath.row]
-        navigationController?.pushViewController(newExamViewController, animated: true)
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let newExamViewController = storyboard?.instantiateViewController(withIdentifier: "newExamVC") as! NewExamViewController
+//        newExamViewController.exam = savedExams[indexPath.row]
+//        navigationController?.pushViewController(newExamViewController, animated: true)
+//    }
 }
