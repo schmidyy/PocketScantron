@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol NewExamDelegate: AnyObject {
+    func didAddNewExam(exam: Exam)
+}
+
 class NewExamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     @IBOutlet weak var answerPerQuestionSegmentedControl: UISegmentedControl!
     @IBOutlet weak var questionsOnExamSlider: UISlider!
@@ -17,6 +21,8 @@ class NewExamViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     private var questions: [Question] = Array(0..<180).map { Question(number: $0 + 1, selectedAnswer: .A) }
     var exam: Exam?
+
+    weak var delegate: NewExamDelegate?
     
     var answersPerQuestion = 4 {
         didSet {
@@ -70,9 +76,8 @@ class NewExamViewController: UIViewController, UITableViewDelegate, UITableViewD
         exam.name = name
         exam.questions = Array(questions.prefix(questionsOnExam))
         
-        FirestoreClient.saveExam(exam) {
-            self.navigationController?.popViewController(animated: true)
-        }
+        delegate?.didAddNewExam(exam: exam)
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Event Handlers

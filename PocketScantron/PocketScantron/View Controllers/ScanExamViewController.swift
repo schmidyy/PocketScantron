@@ -42,19 +42,15 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
         
         hud.textLabel.text = "Fetching..."
         hud.show(in: examTableView)
-        
-        FirestoreClient.savedExams(completion: { [weak self] exams in
-            self?.hud.dismiss()
-            guard let `self` = self else { return }
-            
-            if let exams = exams {
-                self.savedExams = exams
-            } else {
-                self.examTableView.emptyMessageView(message: "There are no saved exams on this device. You can add one from the home screen")
-            }
-            self.examTableView.reloadData()
-        })
-        
+
+        if let exams = Device.localExams() {
+            savedExams = exams
+        } else {
+            examTableView.emptyMessageView(message: "There are no saved exams on this device. You can add one from the home screen")
+        }
+        hud.dismiss()
+        examTableView.reloadData()
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(dismissButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .done, target: self, action: #selector(saveButtonTapped))
         navigationItem.rightBarButtonItem?.isEnabled = false
@@ -74,14 +70,25 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
         hud.textLabel.text = "Analyzing...\nThis may take a minute."
         hud.show(in: view)
 
-        guard let exam = selectedExam else { return }
-        FirestoreClient.saveImage(url: testURL, numQuestions: exam.numQuestions, completion: { [weak self] response in
-            self?.hud.dismiss()
-            guard let results = response else { return }
-            let resultsVC = self?.storyboard?.instantiateViewController(withIdentifier: "results") as! ResultsViewController
-            resultsVC.results = ComputedResults(baseExam: exam, results: results)
-            self?.navigationController?.pushViewController(resultsVC, animated: true)
-        })
+        guard let exam = selectedExam, let image = examImage?.noir else { return }
+        FirestoreClient.uploadImage(increaseContrast(image)) { url in
+            guard let urlString = url else { return }
+            FirestoreClient.saveImage(url: urlString, numQuestions: exam.numQuestions, completion: { [weak self] response in
+                self?.hud.dismiss()
+                guard let results = response else { return }
+                let resultsVC = self?.storyboard?.instantiateViewController(withIdentifier: "results") as! ResultsViewController
+                resultsVC.results = ComputedResults(baseExam: exam, results: results)
+                self?.navigationController?.pushViewController(resultsVC, animated: true)
+            })
+
+        }
+//        FirestoreClient.saveImage(url: testURL, numQuestions: exam.numQuestions, completion: { [weak self] response in
+//            self?.hud.dismiss()
+//            guard let results = response else { return }
+//            let resultsVC = self?.storyboard?.instantiateViewController(withIdentifier: "results") as! ResultsViewController
+//            resultsVC.results = ComputedResults(baseExam: exam, results: results)
+//            self?.navigationController?.pushViewController(resultsVC, animated: true)
+//        })
 
     }
     

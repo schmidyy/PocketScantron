@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Exam {
+struct Exam: Codable {
     var id: String
     var name: String
     var questions: [Question]
@@ -18,12 +18,12 @@ struct Exam {
     }
 }
 
-enum Answer: String {
+enum Answer: String, Codable {
     case A, B, C, D, E
     static let allValues = [A, B, C, D, E]
 }
 
-struct Question {
+struct Question: Codable {
     let number: Int
     var selectedAnswer: Answer = .A
 }

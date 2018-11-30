@@ -29,22 +29,19 @@ class SavedSolutionsTableViewController: UITableViewController {
     private func fetchExams() {
         hud.textLabel.text = "Fetching..."
         hud.show(in: tableView)
-        
-        FirestoreClient.savedExams(completion: { [weak self] exams in
-            self?.hud.dismiss()
-            guard let `self` = self else { return }
-            
-            if let exams = exams {
-                self.savedExams = exams
-            } else {
-                self.tableView.emptyMessageView(message: "There are no saved exams on this device. You can add one by selecting the + on the top right of this screen.")
-            }
-            self.tableView.reloadData()
-        })
+
+        if let exams = Device.localExams() {
+            savedExams = exams
+        } else {
+            tableView.emptyMessageView(message: "There are no saved exams on this device. You can add one by selecting the + on the top right of this screen.")
+        }
+        hud.dismiss()
+        tableView.reloadData()
     }
     
     @objc func addExamButtonTapped() {
         let newExamViewController = storyboard?.instantiateViewController(withIdentifier: "newExamVC") as! NewExamViewController
+        newExamViewController.delegate = self
         navigationController?.pushViewController(newExamViewController, animated: true)
     }
     
@@ -73,13 +70,14 @@ class SavedSolutionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "examCell", for: indexPath) as! ExamTableViewCell
         cell.formatCell(for: savedExams[indexPath.row])
-//        cell.accessoryType = .disclosureIndicator
         return cell
     }
-    
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let newExamViewController = storyboard?.instantiateViewController(withIdentifier: "newExamVC") as! NewExamViewController
-//        newExamViewController.exam = savedExams[indexPath.row]
-//        navigationController?.pushViewController(newExamViewController, animated: true)
-//    }
+}
+
+extension SavedSolutionsTableViewController: NewExamDelegate {
+    func didAddNewExam(exam: Exam) {
+        savedExams.append(exam)
+        Device.saveExams(exams: savedExams)
+        fetchExams()
+    }
 }
