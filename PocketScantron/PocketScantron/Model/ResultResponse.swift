@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 struct ResultResponse {
     struct Result {
@@ -15,4 +16,18 @@ struct ResultResponse {
     }
     
     let results: [Result]
+
+    init(withDictionary json: JSON) {
+        var response: [Result] = []
+        for subJson in json {
+            let number = subJson.1["current_question"].intValue
+            let answer = subJson.1["letter_guess"].stringValue
+            response.append(Result(number: number, answer: answer))
+        }
+        self.results = response
+    }
+
+    init(results: [Result]) {
+        self.results = results
+    }
 }

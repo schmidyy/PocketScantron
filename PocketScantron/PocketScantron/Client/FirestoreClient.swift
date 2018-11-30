@@ -93,18 +93,15 @@ struct FirestoreClient {
         }
     }
     
-    static func saveImage(url: String, examID: String, completion: @escaping() -> Void) {
-        let fields: [String: Any] = [
-            "url": url,
-            "id": examID
-            // num question
-            // user id
-        ]
-    
-        Alamofire.request(url, method: .post, parameters: fields, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
-            guard let data = response.data else { return }
+    static func saveImage(url: String, numQuestions: Int, completion: @escaping(_ response: ResultResponse?) -> Void) {
+        let url = "https://us-central1-pocketscantron.cloudfunctions.net/documentScore?url=\(url)&numQuestions=\(numQuestions)"
+        Alamofire.request(url).responseJSON { response in
+            guard let data = response.data else {
+                completion(nil)
+                return
+            }
             let json = JSON(data)
-            print(json)
+            completion(ResultResponse(withDictionary: json))
         }
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2737822D2193AF0500167385 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2737822C2193AF0500167385 /* ResultsViewController.swift */; };
 		2769AC31215E93F800A6F8B2 /* NewExamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2769AC30215E93F800A6F8B2 /* NewExamViewController.swift */; };
 		2769AC33215E99CC00A6F8B2 /* QuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2769AC32215E99CC00A6F8B2 /* QuestionTableViewCell.swift */; };
 		276E07FE218E1234003F499B /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E07FD218E1234003F499B /* UIImage+Extensions.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		210F3C3B5E30B3F18BD9CCFB /* Pods-PocketScantron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketScantron.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PocketScantron/Pods-PocketScantron.debug.xcconfig"; sourceTree = "<group>"; };
+		2737822C2193AF0500167385 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		2769AC30215E93F800A6F8B2 /* NewExamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExamViewController.swift; sourceTree = "<group>"; };
 		2769AC32215E99CC00A6F8B2 /* QuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableViewCell.swift; sourceTree = "<group>"; };
 		276E07FD218E1234003F499B /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				278341EE2152AF55001DA762 /* SavedSolutionsTableViewController.swift */,
 				2769AC30215E93F800A6F8B2 /* NewExamViewController.swift */,
 				27D769912176C5C200DD2068 /* ScanExamViewController.swift */,
+				2737822C2193AF0500167385 /* ResultsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				278341F32152FCF3001DA762 /* ExamTableViewCell.swift in Sources */,
 				2769AC33215E99CC00A6F8B2 /* QuestionTableViewCell.swift in Sources */,
 				278341EF2152AF55001DA762 /* SavedSolutionsTableViewController.swift in Sources */,
+				2737822D2193AF0500167385 /* ResultsViewController.swift in Sources */,
 				276E07FE218E1234003F499B /* UIImage+Extensions.swift in Sources */,
 				27AD9D2D217E9012000A76C3 /* FirestoreClient.swift in Sources */,
 				278341F12152AF96001DA762 /* Exam.swift in Sources */,

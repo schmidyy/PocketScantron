@@ -15,10 +15,12 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scanButton: UIButton!
     @IBOutlet weak var examTableView: UITableView!
+
+    let testURL = "https://firebasestorage.googleapis.com/v0/b/pocketscantron.appspot.com/o/5F9F851B-D018-4E37-81FD-6363AD6A5939.jpg?alt=media&token=ae924527-680d-4ad4-a3d0-3b93e7d36bc3"
     
     private var savedExams: [Exam] = []
     
-    private var selectedExamID: String? {
+    private var selectedExam: Exam? {
         didSet {
             updateNavBarButton()
         }
@@ -64,20 +66,27 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func saveButtonTapped() {
-        guard let image = examImage?.noir else { return }
-        FirestoreClient.uploadImage(increaseContrast(image)) { url in
-            guard let urlString = url, let examID = self.selectedExamID else { return }
-            print(urlString)
-            
-            FirestoreClient.saveImage(url: urlString, examID: examID, completion: {
-                //
-            })
-        }
-        dismiss(animated: true, completion: nil)
+//        guard let image = examImage?.noir else { return }
+//        FirestoreClient.uploadImage(increaseContrast(image)) { url in
+//            guard let urlString = url, let numQuestions = self.examNumQuestions else { return }
+//        }
+
+        hud.textLabel.text = "Analyzing...\nThis may take a minute."
+        hud.show(in: view)
+
+        guard let exam = selectedExam else { return }
+        FirestoreClient.saveImage(url: testURL, numQuestions: exam.numQuestions, completion: { [weak self] response in
+            self?.hud.dismiss()
+            guard let results = response else { return }
+            let resultsVC = self?.storyboard?.instantiateViewController(withIdentifier: "results") as! ResultsViewController
+            resultsVC.results = ComputedResults(baseExam: exam, results: results)
+            self?.navigationController?.pushViewController(resultsVC, animated: true)
+        })
+
     }
     
     private func updateNavBarButton() {
-        guard examImage != nil && selectedExamID != nil else { return }
+        guard examImage != nil && selectedExam != nil else { return }
         navigationItem.rightBarButtonItem?.isEnabled = true
     }
     
@@ -103,7 +112,7 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedExamID = savedExams[indexPath.row].id
+        selectedExam = savedExams[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath) {
             if cell.accessoryType == .none {
