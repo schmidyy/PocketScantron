@@ -153,7 +153,6 @@ class ScanExamViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func imageScannerControllerDidCancel(_ scanner: ImageScannerController) {
-        // Your ViewController is responsible for dismissing the ImageScannerController
         scanner.dismiss(animated: true)
     }
     
